@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Advanced Search</title>
+    <style>
+
+        .left{
+                margin-left:60px
+            }
+            nav {
+                margin-top: 20px; margin-right: 50px;
+                
+            }
+        /* navbar */
+        nav {display: flex;
+    justify-content: flex-end;}
+        nav > a {
+                 margin-right: 20px; 
+                 text-decoration: none;
+                 font-size: 15px;
+                 color: black;
+        }
+        nav > a:hover {text-decoration: underline;}
+
+        p {display: block;
+        margin-top: 50px;
+        }
+        #advanced {font-size: 25px;color:#d93025;}
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: 200px 4fr 1fr 4fr 4fr;
+            gap: 10px ;
+            width:70%;
+            margin-left: 60px;
+        }
+        .grid-container > * {
+            height: 25px;
+            display:flex;
+            align-items: center;
+        }
+        .input_ {
+            grid-column: span 3;
+        }
+        #to{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+ 
+        .right-label {font-size: 12px}
+        
+        .submit{
+            grid-column: 4 / 5;
+            width: 50%;
+            position: relative;
+            left: 50%;
+            display: flex;
+            justify-content: center;
+
+            color: white;
+            background-color: #4d90fe;
+            border: none;
+            border-radius: 5px;
+            
+        
+        }
+        .submit:hover{border: 1px solid black}
+        .top {font-weight: bold; font-size: large;}
+        .right {
+            position: absolute;
+            left: 55%;
+        }
+
+
+        .input_ , .input- {padding-left: 20px;}
+        @media (max-width:1200px){
+            .right-label {
+                font-size: 1px;
+                color: white;
+            }
+            .right {color: white;font-size: 1px;}
+        }
+ </style>    
+</head>
+<body>
+    <nav>
+        <a href="index.html">Go back</a>
+        
+    </nav>
+    <div>
+    <p class="left" id="advanced">Advanced search</p>
+    </div>
+
+    <hr>
+    <br><span class="top left">Find pages with...</span> <span class="top right">To do this in the search box</span> <br><br>
+    <form class="grid-container" action="https://www.google.com/search">
+        <label>all these words:</label>
+        <input type="text" name="q" class="input_">
+        <label class="right-label">Type the important words:  tricolor rat terrier</label>
+
+        <label>this exact word or phrase:</label>
+        <input type="text" name="as_epq" class="input_">
+        <label class="right-label">Put exact words in quotes:  "rat terrier"</label>
+
+        <label>any of these words:</label>
+        <input type="text" name="as_oq" class="input_">
+        <label class="right-label">Type OR between all the words you want:  miniature OR standard</label>
+
+        <label>none of these words:</label>
+        <input type="text" name="as_eq" class="input_">
+        <label class="right-label">Put a minus sign just before words you don't want:  -rodent, -"Jack Russell"</label>
+
+        <label>numbers ranging from:</label>
+        <input type="text" name="as_nlo" class="input-" >
+        <label id="to">to</label>
+        <input type="text" name="as_nhi" class="input-">
+        <label class="right-label">Put 2 periods between the numbers and add a unit of measure: 10..35 lb, $300..$500, 2010..2011</label>
+
+        <input type="submit" class="submit" value="Advanced Search">
+
+
+    </form>
+
+
+</body>
+</html>

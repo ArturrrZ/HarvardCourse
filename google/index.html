@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Google</title>
+        <style>
+            .main_part{
+                position: absolute;
+                top: 35%;
+                left: 60%;
+                transform: translate(-50%, -50%)
+            }
+            form {position: relative;
+                top: 15px;
+                right: 150px;
+                
+            }
+            #submit {margin-top: 20px; margin-left: 140px; border-radius: 5px;border-width: 0.5px;
+                height: 32px;width: 150px;font-size: 14px;}
+            #lucky  { margin-left: 5px;
+                border-radius: 5px;border-width: 0.5px;
+                height: 32px;width: 150px;font-size: 14px;}    
+            #text {border-radius: 25px;height: 35px; border-width: 0.5px; padding-left: 20px;}
+            nav {
+                margin-top: 20px; margin-right: 50px;
+                display:flex;
+                justify-content: flex-end;
+            }
+            nav > a{color:black;
+                margin-right: 20px; 
+                text-decoration: none;
+                font-size: 15px;}
+            a:hover {
+                text-decoration: underline;
+            }
+
+            .submit {
+                border: none;
+            }
+            .submit:hover {
+                border: 1px solid black;
+            }
+        </style>
+    </head>
+    <body>
+        <nav>
+            <a href="images.html">Image search</a>
+            <a href="advanced.html">Advanced search</a>
+        </nav>
+        <div class="main_part">
+            <img src="google_logo.png" alt="Google logo">    
+            <form action="https://google.com/search">
+                <input id="text" type="text" name="q" size="77" ><br>
+                <input id="submit"  type="submit" value="Google Search" class="submit">
+                <input type="submit" value="I'm Feeling Lucky" id="lucky" name="btnI" class="submit">
+            </form>
+                
+        </div>
+    </body>
+</html>
