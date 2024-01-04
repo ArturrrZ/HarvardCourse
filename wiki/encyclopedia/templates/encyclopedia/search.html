@@ -1,0 +1,21 @@
+{% extends 'encyclopedia/layout.html' %}
+
+{% block title %}
+    Search Bar
+{% endblock %}
+
+
+{% block body %}
+  {% if list %}
+  <h1>Results for your query:</h1>
+    <ul>
+
+    {% for entry in list %}
+      <a href="{% url 'wiki:get_entry' title=entry%}" ><li>{{entry}}</li></a>
+    {% endfor %}
+     {% else %}
+      <h2 id="bad_query">There is no any entry with this name</h2>
+      {% endif %}
+    </ul>
+
+{% endblock %}

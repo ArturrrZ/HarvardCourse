@@ -1,0 +1,31 @@
+{% extends 'encyclopedia/layout.html' %}
+
+
+{% block title %}New Page{% endblock %}
+
+{% block body %}
+
+
+<form action="{% url 'wiki:new_page' %}" method="POST">
+  {% csrf_token %}
+
+  <label>Enter the title:</label><br>
+  <input type="text" name="title" placeholder="bla bla"><br>
+     {% if messages %}
+        <ul class="messages_error">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+  <label>Enter the Markdown content for the page:</label><br>
+  <textarea id="story" name="content">
+It was a dark and stormy night...
+</textarea><br>
+  <input type="submit">
+
+
+</form>
+
+{% endblock %}
+
