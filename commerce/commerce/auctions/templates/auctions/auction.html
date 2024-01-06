@@ -1,0 +1,116 @@
+{% extends 'auctions/layout.html' %}
+{% block body %}
+
+{% if is_current_user and item.is_closed %}
+    <h1 class="winner-message">🎊Congratulations!!! You won this item for {{ item.current_bid }}$🎊</h1>
+{% endif %}
+    {% if item.is_closed and not is_current_user %}
+            <div class="not-winner-message">
+                <h1 >This item was sold! </h1>
+            </div>
+    {% endif %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4">
+        {% if item.picture_url %}
+            <div class="main">
+            <img class="item-pic" src="{{ item.picture_url }}" alt="picture of an item" height="300px" width="300px">
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="col-sm-8">
+            <div class="right-side">
+            <div class="top">
+                <a class="title-a" href="{% url 'auction' item_id=item.id %} "><strong><h1>{{ item.title }}</h1></a></strong>
+                 <h5>Starting price: {{ item.start_price }}$</h5>
+                <h6>Current bid: {{ item.current_bid }}$
+                {% if is_current_user %}
+                    - <strong>This is yours bid!</strong>
+                {% endif %}
+                </h6>
+                 <p>{{ item.description }}</p>
+
+            </div>
+            <div class="bottom">
+                <p>Created by: <strong>{{ item.seller.username }}</strong><br>
+                {{ item.date }} at {{ item.time }}
+                </p>
+                {% if item not in request.user.watchlist.all %}
+                    <a href="{% url 'add_watchlist' item_id=item.id   %}"><button style="color:green">Add to Watchlist</button></a>
+                    {% else %}
+                    In watchlist
+                <a href="{% url 'delete_watchlist' item_id=item.id %}"><button style="color:red">Remove</button></a>
+                    {% endif %}
+            </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    {% if seller %}
+            {% if item.is_closed %}
+            <h1>You closed this item for {{ item.current_bid }}$</h1>
+            {% else %}
+            <a href="{% url 'close_the_bid' item_id=item.id %}" style="color:red; margin:50px;"><h1>CLOSE THE BID</h1></a>
+            {% endif %}
+
+    {% endif %}
+
+    {% if not item.is_closed %}
+
+    {% if request.user.is_authenticated %}
+
+
+    <hr>
+            <ul class="messages_error">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+            </ul>
+            <div class="bid-form">
+
+            <form action="{% url 'auction' item_id=item.id %}" method="POST">
+                {% csrf_token %}
+                {{ form }}
+                <input type="submit" value="Make bid">
+            </form>
+            </div>
+            {% if messages %}
+
+    {% endif %}
+    {% endif %}
+    <hr>
+        <form action="{% url 'comment' item_id=item.id %}" method="post">
+            {% csrf_token %}
+            <textarea name="body" id="comment" cols="100" rows="3" placeholder="Leave a comment"></textarea><br>
+            <input type="Submit">
+        </form>
+    <hr>
+    {% endif %}
+    <h2>Comment section:</h2>
+{% for comment in item.comments.all %}
+    <div class="comment">
+        <div class="comment-content">
+        <strong>{{ comment.user.username }} </strong>{{ comment.likes.count }}
+            {% if user not in comment.likes.all %}
+            <a href="{% url 'add_like' comment_id=comment.id item_id=item.id  %}" class="like"><span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+                 <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
+            </svg></span></a>
+            {% else %}
+            <a href="{% url 'remove_like' comment_id=comment.id item_id=item.id  %}" class="like"><span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
+            </svg></span></a>
+            {% endif %}
+        <p> {{ comment.body }} </p>
+        <h6>{{ comment.date }}  {{ comment.time }}</h6>
+        </div>
+    </div>
+            <hr>
+    {% endfor %}
+    </div>
+</div>
+{% endblock %}

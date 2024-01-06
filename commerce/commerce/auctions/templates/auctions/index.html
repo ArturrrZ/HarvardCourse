@@ -1,0 +1,60 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+
+    {% if user.is_authenticated %}
+
+    {% endif%}
+    <br>
+    <ul class="container">
+        <h2>Active Listings </h2>
+        <br>
+        {% for item in items %}
+        <li>
+        <div class="row">
+            <div class="col-sm-4">
+                {% if item.picture_url %}
+                <img class="item-pic" src="{{ item.picture_url }}" alt="picture of an item" height="300px" width="300px">
+                {% endif %}
+            </div>
+            <div class="col-sm-6">
+                 <div class="right-side">
+
+            <div class="top">
+                <a class="title-a" href="{% url 'auction' item_id=item.id %} "><h3>{{ item.title }}</h3></a>
+                 <h5>Starting price: {{ item.start_price }}$</h5>
+                 <p>{{ item.description }}</p>
+                <a href="{% url 'auction' item_id=item.id %}"><button>Make a bid</button></a>
+            </div>
+            <div class="bottom">
+                <p>Created by: <strong>{{ item.seller.username }}</strong><br>
+                {{ item.date }} at {{ item.time }}
+                </p>
+                {% if user.is_authenticated %}
+                    {% if item not in request.user.watchlist.all %}
+                    <a href="{% url 'add_watchlist' item_id=item.id   %}"><button style="color:green">Add to Watchlist</button></a>
+                    {% else %}
+                    <h6>In watchlist</h6>
+                <a href="{% url 'delete_watchlist' item_id=item.id %}"><button style="color:red">Remove</button></a>
+
+                    {% endif %}
+                {% endif %}
+
+            </div>
+
+        </div></div>
+          
+        </li>
+        <hr>
+        {% endfor %}
+
+    </ul>
+            </div>
+
+        </div>
+
+
+
+
+
+{% endblock %}

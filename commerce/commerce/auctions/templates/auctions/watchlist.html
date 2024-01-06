@@ -1,0 +1,13 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+
+{% for item in request.user.watchlist.all %}
+
+<h3><a href="{% url 'auction' item_id=item.id %}">{{item.title}} - {{item.start_price}}$</a>    <a href="{% url 'delete_watchlist' item_id=item.id %}" style="margin-left:50px">x</a></h3>
+
+{% endfor %}
+
+
+
+{% endblock %}
